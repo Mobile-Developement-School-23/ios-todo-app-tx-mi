@@ -7,9 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5512DCF2A45C6F200708BB4 /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */; };
+		C561F91E2A423188003EA817 /* TodoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F91D2A423188003EA817 /* TodoListVC.swift */; };
+		C561F9202A42360B003EA817 /* TodoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F91F2A42360B003EA817 /* TodoListPresenter.swift */; };
+		C561F9222A423F78003EA817 /* TodoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F9212A423F78003EA817 /* TodoDetailPresenter.swift */; };
+		C561F9242A423F86003EA817 /* TodoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F9232A423F86003EA817 /* TodoDetailVC.swift */; };
+		C561F9262A423F93003EA817 /* TodoDetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F9252A423F93003EA817 /* TodoDetailAssembly.swift */; };
+		C561F9282A42422A003EA817 /* TodoLIstAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F9272A42422A003EA817 /* TodoLIstAssembly.swift */; };
+		C5687A5B2A4654E300C1B7FA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */; };
+		C5687A6B2A46608900C1B7FA /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A652A46608800C1B7FA /* SF-Pro-Display-Bold.otf */; };
+		C5687A6C2A46608900C1B7FA /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A662A46608800C1B7FA /* SF-Pro-Text-Bold.otf */; };
+		C5687A6D2A46608900C1B7FA /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A672A46608800C1B7FA /* SF-Pro-Display-Light.otf */; };
+		C5687A6E2A46608900C1B7FA /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A682A46608800C1B7FA /* SF-Pro-Display-Medium.otf */; };
+		C5687A6F2A46608900C1B7FA /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A692A46608800C1B7FA /* SF-Pro-Text-Light.otf */; };
+		C5687A702A46608900C1B7FA /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A6A2A46608900C1B7FA /* SF-Pro-Text-Medium.otf */; };
+		C5687A722A46617200C1B7FA /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A712A46617200C1B7FA /* UIFont+Ext.swift */; };
+		C5687A742A46629500C1B7FA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A732A46629500C1B7FA /* UIColor+Ext.swift */; };
+		C5687A762A466F7E00C1B7FA /* ScrollViewWithStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */; };
+		C5687A782A4677CA00C1B7FA /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A772A4677CA00C1B7FA /* ListView.swift */; };
+		C5687A7A2A467ED500C1B7FA /* ImportanceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */; };
+		C5687A7C2A468BC100C1B7FA /* DeadlineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */; };
+		C5687A7F2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A7D2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf */; };
+		C5687A802A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A7E2A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf */; };
+		C5687A822A469C0C00C1B7FA /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A812A469C0C00C1B7FA /* DeleteButton.swift */; };
 		C58EF2542A3A6661003A6E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2532A3A6661003A6E96 /* AppDelegate.swift */; };
 		C58EF2562A3A6661003A6E96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */; };
-		C58EF2582A3A6661003A6E96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2572A3A6661003A6E96 /* ViewController.swift */; };
 		C58EF25D2A3A6662003A6E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58EF25C2A3A6662003A6E96 /* Assets.xcassets */; };
 		C58EF2602A3A6662003A6E96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58EF25E2A3A6662003A6E96 /* LaunchScreen.storyboard */; };
 		C58EF26A2A3A7086003A6E96 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2692A3A7086003A6E96 /* TodoItem.swift */; };
@@ -18,10 +40,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
+		C561F91D2A423188003EA817 /* TodoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListVC.swift; sourceTree = "<group>"; };
+		C561F91F2A42360B003EA817 /* TodoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPresenter.swift; sourceTree = "<group>"; };
+		C561F9212A423F78003EA817 /* TodoDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailPresenter.swift; sourceTree = "<group>"; };
+		C561F9232A423F86003EA817 /* TodoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailVC.swift; sourceTree = "<group>"; };
+		C561F9252A423F93003EA817 /* TodoDetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailAssembly.swift; sourceTree = "<group>"; };
+		C561F9272A42422A003EA817 /* TodoLIstAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoLIstAssembly.swift; sourceTree = "<group>"; };
+		C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		C5687A652A46608800C1B7FA /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		C5687A662A46608800C1B7FA /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		C5687A672A46608800C1B7FA /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
+		C5687A682A46608800C1B7FA /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		C5687A692A46608800C1B7FA /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		C5687A6A2A46608900C1B7FA /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		C5687A712A46617200C1B7FA /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
+		C5687A732A46629500C1B7FA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithStack.swift; sourceTree = "<group>"; };
+		C5687A772A4677CA00C1B7FA /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceViewCell.swift; sourceTree = "<group>"; };
+		C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineViewCell.swift; sourceTree = "<group>"; };
+		C5687A7D2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		C5687A7E2A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		C5687A812A469C0C00C1B7FA /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		C58EF2502A3A6661003A6E96 /* To-do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58EF2532A3A6661003A6E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C58EF2572A3A6661003A6E96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C58EF25C2A3A6662003A6E96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C58EF25F2A3A6662003A6E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C58EF2612A3A6662003A6E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,6 +85,137 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C561F90C2A421792003EA817 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				C561F9172A4219A8003EA817 /* TodoList */,
+				C561F9112A421931003EA817 /* TodoDetail */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		C561F90D2A42179C003EA817 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C561F90E2A4217A7003EA817 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */,
+				C5687A712A46617200C1B7FA /* UIFont+Ext.swift */,
+				C5687A732A46629500C1B7FA /* UIColor+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C561F90F2A4217B7003EA817 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */,
+				C5687A772A4677CA00C1B7FA /* ListView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C561F9102A4217C2003EA817 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C5687A5C2A465C5F00C1B7FA /* Fonts */,
+				C58EF25C2A3A6662003A6E96 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C561F9112A421931003EA817 /* TodoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C561F9192A421A4A003EA817 /* Assembly */,
+				C561F91A2A421A57003EA817 /* Presenter */,
+				C561F9122A421954003EA817 /* View */,
+			);
+			path = TodoDetail;
+			sourceTree = "<group>";
+		};
+		C561F9122A421954003EA817 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */,
+				C561F9232A423F86003EA817 /* TodoDetailVC.swift */,
+				C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */,
+				C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */,
+				C5687A812A469C0C00C1B7FA /* DeleteButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C561F9172A4219A8003EA817 /* TodoList */ = {
+			isa = PBXGroup;
+			children = (
+				C561F91C2A421A66003EA817 /* Assembly */,
+				C561F91B2A421A60003EA817 /* Presenter */,
+				C561F9182A4219B9003EA817 /* View */,
+			);
+			path = TodoList;
+			sourceTree = "<group>";
+		};
+		C561F9182A4219B9003EA817 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C561F91D2A423188003EA817 /* TodoListVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C561F9192A421A4A003EA817 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				C561F9252A423F93003EA817 /* TodoDetailAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		C561F91A2A421A57003EA817 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C561F9212A423F78003EA817 /* TodoDetailPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C561F91B2A421A60003EA817 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C561F91F2A42360B003EA817 /* TodoListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C561F91C2A421A66003EA817 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				C561F9272A42422A003EA817 /* TodoLIstAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		C5687A5C2A465C5F00C1B7FA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C5687A7E2A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf */,
+				C5687A7D2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf */,
+				C5687A652A46608800C1B7FA /* SF-Pro-Display-Bold.otf */,
+				C5687A672A46608800C1B7FA /* SF-Pro-Display-Light.otf */,
+				C5687A682A46608800C1B7FA /* SF-Pro-Display-Medium.otf */,
+				C5687A662A46608800C1B7FA /* SF-Pro-Text-Bold.otf */,
+				C5687A692A46608800C1B7FA /* SF-Pro-Text-Light.otf */,
+				C5687A6A2A46608900C1B7FA /* SF-Pro-Text-Medium.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		C58EF2472A3A6661003A6E96 = {
 			isa = PBXGroup;
 			children = (
@@ -60,12 +235,14 @@
 		C58EF2522A3A6661003A6E96 /* To-do */ = {
 			isa = PBXGroup;
 			children = (
-				C58EF26D2A3A816E003A6E96 /* DataManager */,
-				C58EF2682A3A6F9B003A6E96 /* Models */,
-				C58EF2532A3A6661003A6E96 /* AppDelegate.swift */,
 				C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */,
-				C58EF2572A3A6661003A6E96 /* ViewController.swift */,
-				C58EF25C2A3A6662003A6E96 /* Assets.xcassets */,
+				C58EF2532A3A6661003A6E96 /* AppDelegate.swift */,
+				C561F90F2A4217B7003EA817 /* Components */,
+				C561F90C2A421792003EA817 /* Modules */,
+				C561F90D2A42179C003EA817 /* Services */,
+				C58EF2682A3A6F9B003A6E96 /* Models */,
+				C561F90E2A4217A7003EA817 /* Extensions */,
+				C561F9102A4217C2003EA817 /* Resources */,
 				C58EF25E2A3A6662003A6E96 /* LaunchScreen.storyboard */,
 				C58EF2612A3A6662003A6E96 /* Info.plist */,
 			);
@@ -75,18 +252,11 @@
 		C58EF2682A3A6F9B003A6E96 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C58EF26E2A3A818F003A6E96 /* FileCache.swift */,
 				C58EF2692A3A7086003A6E96 /* TodoItem.swift */,
 				C58EF26B2A3A70F5003A6E96 /* Importance.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		C58EF26D2A3A816E003A6E96 /* DataManager */ = {
-			isa = PBXGroup;
-			children = (
-				C58EF26E2A3A818F003A6E96 /* FileCache.swift */,
-			);
-			path = DataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,8 +317,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5687A6E2A46608900C1B7FA /* SF-Pro-Display-Medium.otf in Resources */,
 				C58EF2602A3A6662003A6E96 /* LaunchScreen.storyboard in Resources */,
+				C5687A802A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf in Resources */,
+				C5687A6D2A46608900C1B7FA /* SF-Pro-Display-Light.otf in Resources */,
 				C58EF25D2A3A6662003A6E96 /* Assets.xcassets in Resources */,
+				C5687A702A46608900C1B7FA /* SF-Pro-Text-Medium.otf in Resources */,
+				C5687A6C2A46608900C1B7FA /* SF-Pro-Text-Bold.otf in Resources */,
+				C5687A7F2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf in Resources */,
+				C5687A6F2A46608900C1B7FA /* SF-Pro-Text-Light.otf in Resources */,
+				C5687A6B2A46608900C1B7FA /* SF-Pro-Display-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,10 +337,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C58EF2582A3A6661003A6E96 /* ViewController.swift in Sources */,
+				C5687A762A466F7E00C1B7FA /* ScrollViewWithStack.swift in Sources */,
+				C5687A722A46617200C1B7FA /* UIFont+Ext.swift in Sources */,
 				C58EF2542A3A6661003A6E96 /* AppDelegate.swift in Sources */,
+				C5687A782A4677CA00C1B7FA /* ListView.swift in Sources */,
+				C5687A822A469C0C00C1B7FA /* DeleteButton.swift in Sources */,
 				C58EF26C2A3A70F5003A6E96 /* Importance.swift in Sources */,
+				C561F9282A42422A003EA817 /* TodoLIstAssembly.swift in Sources */,
+				C561F9222A423F78003EA817 /* TodoDetailPresenter.swift in Sources */,
+				C561F9262A423F93003EA817 /* TodoDetailAssembly.swift in Sources */,
 				C58EF26A2A3A7086003A6E96 /* TodoItem.swift in Sources */,
+				C561F9242A423F86003EA817 /* TodoDetailVC.swift in Sources */,
+				C5512DCF2A45C6F200708BB4 /* ExpandableTextView.swift in Sources */,
+				C561F9202A42360B003EA817 /* TodoListPresenter.swift in Sources */,
+				C5687A5B2A4654E300C1B7FA /* UIView+Ext.swift in Sources */,
+				C561F91E2A423188003EA817 /* TodoListVC.swift in Sources */,
+				C5687A7A2A467ED500C1B7FA /* ImportanceViewCell.swift in Sources */,
+				C5687A7C2A468BC100C1B7FA /* DeadlineViewCell.swift in Sources */,
+				C5687A742A46629500C1B7FA /* UIColor+Ext.swift in Sources */,
 				C58EF26F2A3A818F003A6E96 /* FileCache.swift in Sources */,
 				C58EF2562A3A6661003A6E96 /* SceneDelegate.swift in Sources */,
 			);
@@ -316,7 +508,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -345,7 +537,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
