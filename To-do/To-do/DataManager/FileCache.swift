@@ -11,8 +11,8 @@ protocol FileCacheProtocol {
     var items: [String: TodoItem] { get }
     func add(_ item: TodoItem) -> TodoItem?
     func removeItem(with id: String) -> TodoItem?
-    func saveItems(to fileName: String, with fileExt: FileCache.FileExtension)
-    func loadItems(from fileName: String, with fileExt: FileCache.FileExtension)
+    func saveItems(to fileName: String, with fileExt: FileCache.FileExtension) throws
+    func loadItems(from fileName: String, with fileExt: FileCache.FileExtension) throws
 }
 
 final class FileCache: FileCacheProtocol {
@@ -21,6 +21,7 @@ final class FileCache: FileCacheProtocol {
     private(set) var items: [String: TodoItem] = [:]
     
     // MARK: Public methods - ImpFileCacheProtocol
+    @discardableResult
     func add(_ item: TodoItem) -> TodoItem? {
         let oldItem = items[item.id]
         items[item.id] = item
@@ -28,6 +29,7 @@ final class FileCache: FileCacheProtocol {
         return oldItem
     }
     
+    @discardableResult
     func removeItem(with id: String) -> TodoItem? {
         let oldItem = items[id]
         items[id] = nil
@@ -35,7 +37,7 @@ final class FileCache: FileCacheProtocol {
         return oldItem
     }
     
-    func saveItems(to fileName: String, with fileExt: FileExtension = .json) {
+    func saveItems(to fileName: String, with fileExt: FileExtension = .json) throws {
         let jsonArray = items.values.compactMap { $0.json as? [String: Any] }
         
         do {
@@ -46,9 +48,12 @@ final class FileCache: FileCacheProtocol {
             )
             
             // Записываем данные в файл
-            let fileURL = FileManager.default.urls(
-                for: .documentDirectory,
-                in: .userDomainMask)[0]
+            let fileManager = FileManager.default
+            guard let directoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+                throw FileCacheErrors.cannotFindSystemDirectory
+            }
+            
+            let fileURL = directoryURL
                 .appendingPathComponent(fileName)
                 .appendingPathExtension(fileExt.rawValue)
             
@@ -59,17 +64,20 @@ final class FileCache: FileCacheProtocol {
         }
     }
     
-    func loadItems(from fileName: String, with fileExt: FileExtension = .json) {
-        let fileURL = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask)[0]
+    func loadItems(from fileName: String, with fileExt: FileExtension = .json) throws {
+        let fileManager = FileManager.default
+        guard let directoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            throw FileCacheErrors.cannotFindSystemDirectory
+        }
+        
+        let fileURL = directoryURL
             .appendingPathComponent(fileName)
             .appendingPathExtension(fileExt.rawValue)
         
         do {
             let data = try Data(contentsOf: fileURL)
             guard let todoItems = try JSONSerialization.jsonObject(with: data) as? [Any]
-            else { return }
+            else { throw FileCacheErrors.unparsableData }
             updateItems(with: todoItems)
         } catch {
             print(error.localizedDescription)
@@ -84,6 +92,11 @@ extension FileCache {
     
     enum FileExtension: String {
         case json
+    }
+    
+    enum FileCacheErrors: Error {
+        case cannotFindSystemDirectory
+        case unparsableData
     }
     
     private func updateItems(with items: [Any]) {
