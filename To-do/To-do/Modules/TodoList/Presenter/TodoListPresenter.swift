@@ -38,16 +38,20 @@ final class TodoListPresenter {
 extension TodoListPresenter: TodoListViewOutput {
     
     func viewIsReady() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+        DispatchQueue.global().async {
             do {
                 try self.fileCache.loadItems(from: "items", with: .json)
-                self.view?.setup(todoItems: self.getItems())
+                
+                // Update UI in main queue
+                DispatchQueue.main.async {
+                    self.view?.setup(todoItems: self.getItems())
+                }
+                
             } catch {
                 print("🤡 Error: \(error.localizedDescription)")
-                // TODO: Добавить setup с mode для отображения ошибки
             }
         }
+        
     }
     
     func getFileCache() -> FileCacheProtocol {

@@ -13,110 +13,93 @@ protocol TodoDetailViewInput: AnyObject {
 
 final class TodoDetailVC: UIViewController  {
     
+    private enum Constants {
+        static let saveButtonTitle: String = "Сохранить"
+        static let cancelButtonTitle: String = "Отменить"
+        static let placeholderText: String = "Введите текст..."
+        static let minTextViewHeight: CGFloat = 120
+        static let spacing: CGFloat = 16
+        static let cornerRadius: CGFloat = 16
+        static let verticalInset: CGFloat = 16
+        static let horizontalInset: CGFloat = 16
+        static let srollViewInsets: UIEdgeInsets = .init(
+            top: 16,
+            left: 0,
+            bottom: 16,
+            right: 0
+        )
+        static let textContainterInsets: UIEdgeInsets = .init(
+            top: 16,
+            left: 16,
+            bottom: 16,
+            right: 16
+        )
+    }
+    
     var presenter: TodoDetailViewOutput?
     
-    // MARK: UI components
-    private let scrollView: ScrollViewWithStack = {
-        let scrollView = ScrollViewWithStack(arrangedSubviews: [])
+    private lazy var keyboardConstraint = scrollView.bottomAnchor.constraint(
+        equalTo: view.keyboardLayoutGuide.topAnchor
+    )
+    
+    // MARK: - UI components
+    private let scrollView: TDScrollViewWithStack = {
+        let scrollView = TDScrollViewWithStack(arrangedSubviews: [])
+        scrollView.keyboardDismissMode = .interactive
+        scrollView.contentInset = Constants.srollViewInsets
         
         return scrollView
     }()
     
     private let textView: ExpandableTextView = {
         let textView = ExpandableTextView()
-        textView.placeholder = "Введите текст..."
+        textView.placeholder = Constants.placeholderText
         textView
             .setFont(UIFont.body())
             .setTextColor(.tdLabelPrimary)
             .setBackgroundColor(.tdBackSecondary)
-            .setCornerRadius(16)
-            .setTextContainerInsets(.init(
-                top: 16,
-                left: 16,
-                bottom: 16,
-                right: 16
-            ))
+            .setCornerRadius(Constants.cornerRadius)
+            .setTextContainerInsets(Constants.textContainterInsets)
             .useConstraints(true)
         return textView
     }()
     
-    private let listView: ListView = {
-        let listView = ListView()
-            .setPadding(.init(top: 16, left: 0, bottom: 16, right: 0))
-            .setSpacing(16)
-            .setCornerRadius(16)
-            .setBackgroundColor(.tdBackSecondary)
-        listView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return listView
-    }()
+    private let settingsViewStack =  TodoDetailSettingsViewStack(frame: .zero)
     
-    private let importanceCell: ImportanceViewCell = {
-        let cell = ImportanceViewCell()
-        
-        return cell
-    }()
-    
-    private let calendarView: UICalendarView = {
-        let calendarView = UICalendarView()
-        calendarView.availableDateRange = DateInterval(
-            start: .now,
-            end: Date.distantFuture
-        )
-        var calendar = Calendar(identifier: .iso8601)
-        calendar.locale = Locale(identifier: "ru")
-        calendarView.calendar = calendar
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return calendarView
-    }()
-    
-    private let deadlineCell: DeadlineViewCell = {
-        let cell = DeadlineViewCell()
-        
-        return cell
-    }()
-    
-    private lazy var deleteButton: DeleteButton = {
-        let button = DeleteButton()
-        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        
-        return button
-    }()
-    
+    // MARK: - Lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // setup views
         view.backgroundColor = .tdBackPrimary
-        
-        calendarView.delegate = self
-        importanceCell.segmentedControl.selectedSegmentIndex = presenter?.getImportance() ?? 1
-        textView.text = presenter?.text
-        
-        deadlineCell.isCalendarShow = { [weak self] isShow in
-            guard let self, self.deadlineCell.selectedDate != nil else { return }
-            if isShow {
-                listView.addCell(self.calendarView, animated: true)
-            } else {
-                listView.removeCell(self.calendarView, animated: true)
-            }
-        }
-        
-        listView
-            .addCell(importanceCell)
-            .addCell(deadlineCell)
-        scrollView.addArrangedSubviews([textView, listView, deleteButton])
-        addNavButtons()
+        setupNavigationItems()
         addGestures()
-
+        
         // Add subviews
+        scrollView.addArrangedSubviews(textView, settingsViewStack)
         view.addSubview(scrollView)
         
         makeConstraints()
-       
+        
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape, FeatureFlags.splittedDeatilViewInLandscape {
+            scrollView.setAxis(.horizontal)
+        } else {
+            scrollView.setAxis(.vertical)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Удаляем констрейнт с keyboardLayoutGuide при скрытии вьюшки, чтоб не было ошибок
+        NSLayoutConstraint.deactivate([keyboardConstraint])
+        view.removeConstraint(keyboardConstraint)
+    }
+    
+    // MARK: - Init
     init(title: String? = "Дело") {
         super.init(nibName: nil, bundle: nil)
         self.title = title
@@ -128,48 +111,39 @@ final class TodoDetailVC: UIViewController  {
     
     // MARK: - Private methods
     private func makeConstraints() {
+        
         NSLayoutConstraint.activate([
             // Scroll view
             scrollView.leadingAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                constant: 16
+                constant: Constants.horizontalInset
             ),
             scrollView.trailingAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                constant: -16
+                constant: -Constants.horizontalInset
             ),
             scrollView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 16
+                constant: Constants.verticalInset
             ),
+            keyboardConstraint,
             
             // Text view
-            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.minTextViewHeight),
             
-            // Keyboard
-            view.keyboardLayoutGuide.topAnchor.constraint(
-                equalTo: scrollView.bottomAnchor,
-                constant: 16
-            )
         ])
         
     }
     
-    private func addGestures() {
-        // Обрабатываем нажатие на любую область экрана, чтоб скрывать клавиатуру
-        let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(viewTapGesture)
-    }
-    
-    private func addNavButtons() {
+    private func setupNavigationItems() {
         let saveButton = UIBarButtonItem(
-            title: "Сохранить",
+            title: Constants.saveButtonTitle,
             style: .done,
             target: self,
             action: #selector(didTapSave)
         )
         let cancelButton = UIBarButtonItem(
-            title: "Отменить",
+            title: Constants.cancelButtonTitle,
             style: .plain,
             target: self,
             action: #selector(didTapCancel)
@@ -179,16 +153,16 @@ final class TodoDetailVC: UIViewController  {
         navigationItem.leftBarButtonItem = cancelButton
     }
     
+    private func addGestures() {
+        /// Обрабатываем нажатие на любую область экрана, чтоб скрывать клавиатуру
+        let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(viewTapGesture)
+    }
+    
     // MARK: - Handlers
-    
-    
     @objc
     private func didTapSave() {
-        presenter?.saveItem(
-            text: textView.text,
-            importance: importanceCell.segmentedControl.selectedSegmentIndex,
-            deadline: nil
-        )
+        // TODO: Сохранять в модель данные пользователя
     }
     
     @objc
@@ -201,22 +175,10 @@ final class TodoDetailVC: UIViewController  {
         view.endEditing(true)
     }
     
-    @objc
-    private func deleteButtonTapped() {
-        presenter?.deleteButtonTapped()
-        dismiss(animated: true)
-    }
-    
 }
 
 // MARK: - TodoDetailViewInput
-extension TodoDetailVC: TodoDetailViewInput, UICalendarViewDelegate {
-    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        .default()
-    }
+extension TodoDetailVC: TodoDetailViewInput {
     
-    func calendarView(_ calendarView: UICalendarView, didChangeVisibleDateComponentsFrom previousDateComponents: DateComponents) {
-        print(calendarView.calendar.timeZone)
-    }
     
 }

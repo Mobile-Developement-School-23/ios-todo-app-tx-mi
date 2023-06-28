@@ -9,10 +9,13 @@ import Foundation
 
 protocol FileCacheProtocol {
     var items: [String: TodoItem] { get }
+    
     @discardableResult
     func add(_ item: TodoItem) -> TodoItem?
+    
     @discardableResult
     func removeItem(with id: String) -> TodoItem?
+    
     func saveItems(to fileName: String, with fileExt: FileCache.FileExtension) throws
     func loadItems(from fileName: String, with fileExt: FileCache.FileExtension) throws
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C532542E2A4CC1CE00F2A99F /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532542D2A4CC1CE00F2A99F /* FeatureFlags.swift */; };
+		C5478D662A4A4BD600C51E6F /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5478D652A4A4BD600C51E6F /* UIImage+Ext.swift */; };
 		C5512DCF2A45C6F200708BB4 /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */; };
 		C561F91E2A423188003EA817 /* TodoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F91D2A423188003EA817 /* TodoListVC.swift */; };
 		C561F9202A42360B003EA817 /* TodoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C561F91F2A42360B003EA817 /* TodoListPresenter.swift */; };
@@ -23,13 +25,13 @@
 		C5687A702A46608900C1B7FA /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A6A2A46608900C1B7FA /* SF-Pro-Text-Medium.otf */; };
 		C5687A722A46617200C1B7FA /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A712A46617200C1B7FA /* UIFont+Ext.swift */; };
 		C5687A742A46629500C1B7FA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A732A46629500C1B7FA /* UIColor+Ext.swift */; };
-		C5687A762A466F7E00C1B7FA /* ScrollViewWithStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */; };
+		C5687A762A466F7E00C1B7FA /* TDScrollViewWithStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A752A466F7E00C1B7FA /* TDScrollViewWithStack.swift */; };
 		C5687A782A4677CA00C1B7FA /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A772A4677CA00C1B7FA /* ListView.swift */; };
-		C5687A7A2A467ED500C1B7FA /* ImportanceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */; };
-		C5687A7C2A468BC100C1B7FA /* DeadlineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */; };
+		C5687A7A2A467ED500C1B7FA /* TDImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A792A467ED500C1B7FA /* TDImportanceView.swift */; };
+		C5687A7C2A468BC100C1B7FA /* TDDeadlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A7B2A468BC100C1B7FA /* TDDeadlineView.swift */; };
 		C5687A7F2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A7D2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf */; };
 		C5687A802A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A7E2A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf */; };
-		C5687A822A469C0C00C1B7FA /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A812A469C0C00C1B7FA /* DeleteButton.swift */; };
+		C5687A822A469C0C00C1B7FA /* TDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A812A469C0C00C1B7FA /* TDButton.swift */; };
 		C58EF2542A3A6661003A6E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2532A3A6661003A6E96 /* AppDelegate.swift */; };
 		C58EF2562A3A6661003A6E96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */; };
 		C58EF25D2A3A6662003A6E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58EF25C2A3A6662003A6E96 /* Assets.xcassets */; };
@@ -37,9 +39,14 @@
 		C58EF26A2A3A7086003A6E96 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF2692A3A7086003A6E96 /* TodoItem.swift */; };
 		C58EF26C2A3A70F5003A6E96 /* Importance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF26B2A3A70F5003A6E96 /* Importance.swift */; };
 		C58EF26F2A3A818F003A6E96 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EF26E2A3A818F003A6E96 /* FileCache.swift */; };
+		C5BC63722A4A5814001BEDCD /* TodoDetailSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BC63712A4A5814001BEDCD /* TodoDetailSettingsView.swift */; };
+		C5BC63742A4A6E43001BEDCD /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BC63732A4A6E43001BEDCD /* Date+Ext.swift */; };
+		C5BC63762A4A6F0E001BEDCD /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BC63752A4A6F0E001BEDCD /* UIStackView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C532542D2A4CC1CE00F2A99F /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
+		C5478D652A4A4BD600C51E6F /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		C561F91D2A423188003EA817 /* TodoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListVC.swift; sourceTree = "<group>"; };
 		C561F91F2A42360B003EA817 /* TodoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPresenter.swift; sourceTree = "<group>"; };
@@ -56,13 +63,13 @@
 		C5687A6A2A46608900C1B7FA /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
 		C5687A712A46617200C1B7FA /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
 		C5687A732A46629500C1B7FA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
-		C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithStack.swift; sourceTree = "<group>"; };
+		C5687A752A466F7E00C1B7FA /* TDScrollViewWithStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDScrollViewWithStack.swift; sourceTree = "<group>"; };
 		C5687A772A4677CA00C1B7FA /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceViewCell.swift; sourceTree = "<group>"; };
-		C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineViewCell.swift; sourceTree = "<group>"; };
+		C5687A792A467ED500C1B7FA /* TDImportanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDImportanceView.swift; sourceTree = "<group>"; };
+		C5687A7B2A468BC100C1B7FA /* TDDeadlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDDeadlineView.swift; sourceTree = "<group>"; };
 		C5687A7D2A468D6C00C1B7FA /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		C5687A7E2A468D6C00C1B7FA /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
-		C5687A812A469C0C00C1B7FA /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		C5687A812A469C0C00C1B7FA /* TDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDButton.swift; sourceTree = "<group>"; };
 		C58EF2502A3A6661003A6E96 /* To-do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58EF2532A3A6661003A6E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +79,9 @@
 		C58EF2692A3A7086003A6E96 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		C58EF26B2A3A70F5003A6E96 /* Importance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importance.swift; sourceTree = "<group>"; };
 		C58EF26E2A3A818F003A6E96 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		C5BC63712A4A5814001BEDCD /* TodoDetailSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailSettingsView.swift; sourceTree = "<group>"; };
+		C5BC63732A4A6E43001BEDCD /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		C5BC63752A4A6F0E001BEDCD /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +117,9 @@
 				C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */,
 				C5687A712A46617200C1B7FA /* UIFont+Ext.swift */,
 				C5687A732A46629500C1B7FA /* UIColor+Ext.swift */,
+				C5478D652A4A4BD600C51E6F /* UIImage+Ext.swift */,
+				C5BC63732A4A6E43001BEDCD /* Date+Ext.swift */,
+				C5BC63752A4A6F0E001BEDCD /* UIStackView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -116,6 +129,7 @@
 			children = (
 				C5512DCE2A45C6F200708BB4 /* ExpandableTextView.swift */,
 				C5687A772A4677CA00C1B7FA /* ListView.swift */,
+				C5687A812A469C0C00C1B7FA /* TDButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -142,11 +156,11 @@
 		C561F9122A421954003EA817 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C5687A752A466F7E00C1B7FA /* ScrollViewWithStack.swift */,
+				C5687A752A466F7E00C1B7FA /* TDScrollViewWithStack.swift */,
 				C561F9232A423F86003EA817 /* TodoDetailVC.swift */,
-				C5687A792A467ED500C1B7FA /* ImportanceViewCell.swift */,
-				C5687A7B2A468BC100C1B7FA /* DeadlineViewCell.swift */,
-				C5687A812A469C0C00C1B7FA /* DeleteButton.swift */,
+				C5687A792A467ED500C1B7FA /* TDImportanceView.swift */,
+				C5687A7B2A468BC100C1B7FA /* TDDeadlineView.swift */,
+				C5BC63712A4A5814001BEDCD /* TodoDetailSettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +251,7 @@
 			children = (
 				C58EF2552A3A6661003A6E96 /* SceneDelegate.swift */,
 				C58EF2532A3A6661003A6E96 /* AppDelegate.swift */,
+				C532542D2A4CC1CE00F2A99F /* FeatureFlags.swift */,
 				C561F90F2A4217B7003EA817 /* Components */,
 				C561F90C2A421792003EA817 /* Modules */,
 				C561F90D2A42179C003EA817 /* Services */,
@@ -337,23 +352,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5687A762A466F7E00C1B7FA /* ScrollViewWithStack.swift in Sources */,
+				C5478D662A4A4BD600C51E6F /* UIImage+Ext.swift in Sources */,
+				C5687A762A466F7E00C1B7FA /* TDScrollViewWithStack.swift in Sources */,
 				C5687A722A46617200C1B7FA /* UIFont+Ext.swift in Sources */,
+				C5BC63762A4A6F0E001BEDCD /* UIStackView+Ext.swift in Sources */,
 				C58EF2542A3A6661003A6E96 /* AppDelegate.swift in Sources */,
+				C5BC63742A4A6E43001BEDCD /* Date+Ext.swift in Sources */,
 				C5687A782A4677CA00C1B7FA /* ListView.swift in Sources */,
-				C5687A822A469C0C00C1B7FA /* DeleteButton.swift in Sources */,
+				C5687A822A469C0C00C1B7FA /* TDButton.swift in Sources */,
 				C58EF26C2A3A70F5003A6E96 /* Importance.swift in Sources */,
 				C561F9282A42422A003EA817 /* TodoLIstAssembly.swift in Sources */,
+				C5BC63722A4A5814001BEDCD /* TodoDetailSettingsView.swift in Sources */,
 				C561F9222A423F78003EA817 /* TodoDetailPresenter.swift in Sources */,
 				C561F9262A423F93003EA817 /* TodoDetailAssembly.swift in Sources */,
 				C58EF26A2A3A7086003A6E96 /* TodoItem.swift in Sources */,
+				C532542E2A4CC1CE00F2A99F /* FeatureFlags.swift in Sources */,
 				C561F9242A423F86003EA817 /* TodoDetailVC.swift in Sources */,
 				C5512DCF2A45C6F200708BB4 /* ExpandableTextView.swift in Sources */,
 				C561F9202A42360B003EA817 /* TodoListPresenter.swift in Sources */,
 				C5687A5B2A4654E300C1B7FA /* UIView+Ext.swift in Sources */,
 				C561F91E2A423188003EA817 /* TodoListVC.swift in Sources */,
-				C5687A7A2A467ED500C1B7FA /* ImportanceViewCell.swift in Sources */,
-				C5687A7C2A468BC100C1B7FA /* DeadlineViewCell.swift in Sources */,
+				C5687A7A2A467ED500C1B7FA /* TDImportanceView.swift in Sources */,
+				C5687A7C2A468BC100C1B7FA /* TDDeadlineView.swift in Sources */,
 				C5687A742A46629500C1B7FA /* UIColor+Ext.swift in Sources */,
 				C58EF26F2A3A818F003A6E96 /* FileCache.swift in Sources */,
 				C58EF2562A3A6661003A6E96 /* SceneDelegate.swift in Sources */,
@@ -508,7 +528,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,7 +557,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

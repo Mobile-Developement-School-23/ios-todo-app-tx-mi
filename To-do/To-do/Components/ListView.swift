@@ -23,27 +23,18 @@ open class ListView: UIStackView {
     
     // MARK: Public methods
     @discardableResult
-    public func addCell(_ cell: UIView, animated: Bool = false) -> Self {
-        if !subviews.isEmpty {
+    public func addCell(_ cell: UIView, animated: Bool = false, withSeparator isSeparator: Bool = true) -> Self {
+        if !subviews.isEmpty, isSeparator {
             addSeparator()
         }
         
         cell.translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(cell)
-        
-        if !animated {
-            addSubview(cell)
-        } else {
-            UIView.transition(
-                with: self,
-                duration: 0.25,
-                options: [.transitionCrossDissolve],
-                animations: {
-                    self.addSubview(cell)
-                },
-                completion: nil)
+        if animated {
+            UIView.animate(withDuration: 0.35, animations: {
+                cell.layoutIfNeeded()
+            })
         }
-        
         NSLayoutConstraint.activate([
             cell.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             cell.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
@@ -53,27 +44,23 @@ open class ListView: UIStackView {
     }
     
     @discardableResult
-    public func removeCell(_ subview: UIView, animated: Bool = false) -> Self {
-        guard subviews.contains(subview) else { return self }
+    public func removeCell(_ cell: UIView, animated: Bool = false) -> Self {
+        guard subviews.contains(cell) else { return self }
         
-        removeArrangedSubview(subview)
-        if !animated {
-            subview.removeFromSuperview()
-        } else {
+        if animated {
             UIView.transition(
                 with: self,
-                duration: 0.25,
+                duration: 0.35,
                 options: [.transitionCrossDissolve],
                 animations: {
-                    subview.removeFromSuperview()
+                    self.removeArrangedSubview(cell)
                 },
-                completion: nil)
+                completion: nil
+            )
+        } else {
+            removeArrangedSubview(cell)
         }
-        
-        if !subviews.isEmpty, let separator = subviews.last {
-            removeArrangedSubview(separator)
-            separator.removeFromSuperview()
-        }
+        removeSeparator()
         
         return self
     }
@@ -113,28 +100,40 @@ open class ListView: UIStackView {
         return self
     }
     
-    private func setup() {
-        backgroundColor = .secondarySystemBackground
-        isLayoutMarginsRelativeArrangement = false
-        axis = NSLayoutConstraint.Axis.vertical
-        distribution = UIStackView.Distribution.equalSpacing
-        alignment = UIStackView.Alignment.center
-    }
-    
-    private func addSeparator() {
+    @discardableResult
+    public func addSeparator() -> Self {
         let separator = UIView()
         separator.backgroundColor = separatorColor
         separator.translatesAutoresizingMaskIntoConstraints = false
         
         addArrangedSubview(separator)
-        addSubview(separator)
         
         NSLayoutConstraint.activate([
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 16),
-            separator.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            separator.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -16),
         ])
+        
+        return self
     }
+    
+    @discardableResult
+    public func removeSeparator() -> Self {
+        if !subviews.isEmpty, let separator = subviews.last {
+            removeArrangedSubview(separator)
+        }
+        
+        return self
+    }
+    
+    private func setup() {
+        backgroundColor = .secondarySystemBackground
+        isLayoutMarginsRelativeArrangement = false
+        axis = .vertical
+        distribution = .equalSpacing
+        alignment = .center
+    }
+    
     
     
 }
