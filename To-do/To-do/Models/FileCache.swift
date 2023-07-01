@@ -63,7 +63,7 @@ final class FileCache: FileCacheProtocol {
                 .appendingPathExtension(fileExt.rawValue)
             
             try jsonData.write(to: fileURL)
-            print("Items saved to file: \(fileName)")
+            print("Items saved to file: \(fileURL.absoluteString)")
         } catch {
             print("Failed to save items to file: \(error)")
         }

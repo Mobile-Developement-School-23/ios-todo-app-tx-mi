@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class TodoDetailSettingsViewStack: UIStackView {
+protocol TodoDetailSettingsViewStackProtocol {
+    func update(item: ViewData.Item)
+}
+
+final class TodoDetailSettingsViewStack: UIStackView, TodoDetailSettingsViewStackProtocol {
     
     private enum Constants {
         static let deleteButtonLabel: String = "Удалить"
@@ -19,23 +23,34 @@ final class TodoDetailSettingsViewStack: UIStackView {
             bottom: 16,
             right: 0
         )
+        static let deleteButtonTappedNotification: Notification.Name = Notification.Name("DeleteButtonTapped")
     }
     
+    private let viewModel: TodoDetailViewModelProtocol
+    
     // MARK: - UI Components
-    private let importanceView = TDImportanceView(frame: .zero)
+    private lazy var importanceView: TDImportanceView = {
+        let view = TDImportanceView(frame: .zero)
+        
+        view.importanceChange = { [weak self] importance in
+            self?.viewModel.updateImportance(importance)
+        }
+        
+        return view
+    }()
     
     private lazy var deadlineView: TDDeadlineView = {
         let view = TDDeadlineView(frame: .zero)
         
         view.deadlineSwitched = { [weak self] isOn in
             guard let self else { return }
-            // TODO: update deadline in model
             if isOn {
-                print("Set Date")
+                viewModel.updateDeadline(.getTomorrow())
             } else {
-                print("Delete Date")
+                viewModel.updateDeadline(nil)
             }
             
+            // Hide datePicker
             if !isOn, !self.datePicker.isHidden {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.datePickerSeparator?.isHidden = true
@@ -81,6 +96,7 @@ final class TodoDetailSettingsViewStack: UIStackView {
         return listView
     }()
     
+    // Костыль для анимации
     private var datePickerSeparator: UIView?
     
     private lazy var deleteButton: TDButton = {
@@ -88,21 +104,27 @@ final class TodoDetailSettingsViewStack: UIStackView {
         button
             .setText(Constants.deleteButtonLabel)
             .setTextColor(.tdRed)
-        
-        // TODO: Add target for deleteButt
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         
         return button
     }()
     
     // MARK: - init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: TodoDetailViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         
         setup()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func update(item: ViewData.Item) {
+        deadlineView.deadilneDate = item.deadline
+        datePicker.date = item.deadline ?? .getTomorrow()
+        importanceView.importance = item.importance
     }
    
     // MARK: - Setup Views
@@ -128,7 +150,7 @@ final class TodoDetailSettingsViewStack: UIStackView {
         addGestureRecognizer(viewGesture)
         
         // Обработка нажатия на дедлайн - открывает / закрывает datePicker
-        let deadlineGesture = UITapGestureRecognizer(target: self, action: #selector(deadlineTapped))
+        let deadlineGesture = UITapGestureRecognizer(target: self, action: #selector(deadlineViewTapped))
         deadlineView.addGestureRecognizer(deadlineGesture)
     }
     
@@ -146,9 +168,17 @@ final class TodoDetailSettingsViewStack: UIStackView {
 // MARK: - Handlers
 extension TodoDetailSettingsViewStack {
     
+    @objc
+    func deleteButtonTapped() {
+        NotificationCenter.default.post(
+            name: Constants.deleteButtonTappedNotification,
+            object: nil
+        )
+    }
+    
     // MARK:  DatePicker actions
     @objc
-    func deadlineTapped() {
+    func deadlineViewTapped() {
         guard deadlineView.hasDeadline else { return }
         UIView.animate(withDuration: 0.3, animations: {
             if let isSeparator = self.datePickerSeparator?.isHidden {
@@ -161,11 +191,10 @@ extension TodoDetailSettingsViewStack {
     
     @objc func datePickerTapped(sender: UIDatePicker) {
         let newDeadline = sender.date
-        let dateDouble = Double(newDeadline.timeIntervalSince1970)
-        // TODO: Обработка даты
+        viewModel.updateDeadline(newDeadline)
         
         // Скрытие datePicker после выбора даты
-        deadlineTapped()
+        deadlineViewTapped()
     }
     
     

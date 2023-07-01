@@ -8,12 +8,12 @@
 import UIKit
 
 protocol TDDeadlineViewProtocol {
+    var deadilneDate: Date? { get set }
     var hasDeadline: Bool { get }
     var deadlineSwitched: ((_ isOn: Bool) -> Void)? { get set }
 }
 
 final class TDDeadlineView: UIView, TDDeadlineViewProtocol {
-    
     private enum Constants {
         static let titleLabelText: String = "Сделать до"
         static let spacing: CGFloat = 16
@@ -23,6 +23,21 @@ final class TDDeadlineView: UIView, TDDeadlineViewProtocol {
     }
     
     // Protocol
+    var deadilneDate: Date? = nil {
+        didSet {
+            
+            if let date = deadilneDate {
+                setDate(date)
+                subtitleLabel.isHidden = false
+                switchControl.isOn = true
+            } else {
+                subtitleLabel.isHidden = true
+                switchControl.isOn = false
+            }
+            
+        }
+    }
+    
     var hasDeadline: Bool {
         switchControl.isOn
     }

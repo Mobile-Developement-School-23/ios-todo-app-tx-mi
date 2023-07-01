@@ -38,11 +38,15 @@ final class TodoListVC: UIViewController {
     }
     
     private func openTodoDetail(at index: Int) {
-        let item = index < todoItems.count ? todoItems[index] : .init(text: "", importance: .basic)
-        let vc = TodoDetailAssembly.assembly(
-            with: item.id,
-            fileCache: presenter?.getFileCache() ?? FileCache()
+        let item = index < todoItems.count
+            ? todoItems[index]
+            : .init(text: "Новое дело \(index)")
+        presenter?.addItem(item)
+        let viewModel = TodoDetailViewModel(
+            fileCache: presenter?.getFileCache() ?? FileCache(),
+            itemId: item.id
         )
+        let vc = UINavigationController(rootViewController: TodoDetailVC(viewModel: viewModel))
         
         present(vc, animated: true)
     }

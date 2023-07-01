@@ -12,6 +12,8 @@ protocol TodoListViewOutput {
     func viewIsReady()
     
     func getFileCache() -> FileCacheProtocol
+    
+    func addItem(_ item: TodoItem)
 }
 
 final class TodoListPresenter {
@@ -52,6 +54,10 @@ extension TodoListPresenter: TodoListViewOutput {
             }
         }
         
+    }
+    
+    func addItem(_ item: TodoItem) {
+        fileCache.add(item)
     }
     
     func getFileCache() -> FileCacheProtocol {

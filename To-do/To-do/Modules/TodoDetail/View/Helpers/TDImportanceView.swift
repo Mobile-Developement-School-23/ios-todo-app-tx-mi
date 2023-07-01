@@ -7,7 +7,12 @@
 
 import UIKit
 
-final class TDImportanceView: UIView {
+protocol TDImportanceViewProtocol {
+    var importance: Importance { get set }
+    var importanceChange: ((Importance) -> Void)? { get set }
+}
+
+final class TDImportanceView: UIView, TDImportanceViewProtocol {
     
     private enum Constants {
         static let titleLabelText: String = "Важность"
@@ -22,6 +27,21 @@ final class TDImportanceView: UIView {
         static let trailingInset: CGFloat = 12
         static let segmentedControlWidth: CGFloat = 150
     }
+    
+    var importance: Importance = .basic {
+        didSet {
+            switch importance {
+            case .low:
+                segmentedControl.selectedSegmentIndex = 0
+            case .basic:
+                segmentedControl.selectedSegmentIndex = 1
+            case .important:
+                segmentedControl.selectedSegmentIndex = 2
+            }
+        }
+    }
+    
+    var importanceChange: ((Importance) -> Void)?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -40,6 +60,7 @@ final class TDImportanceView: UIView {
             "нет",
             Constants.importantPriority as Any,
         ])
+        control.selectedSegmentIndex = 1
         control.translatesAutoresizingMaskIntoConstraints = false
         
         return control
@@ -69,6 +90,7 @@ final class TDImportanceView: UIView {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentStackView)
+        addActions()
         makeConstraints()
     }
     
@@ -94,6 +116,25 @@ final class TDImportanceView: UIView {
             segmentedControl.widthAnchor.constraint(equalToConstant: Constants.segmentedControlWidth)
         ])
         
+    }
+    
+    private func addActions() {
+        // Setup switcher changed action
+        segmentedControl.addAction(.init(handler: { [weak self] _ in
+            guard let self else { return }
+            
+            switch self.segmentedControl.selectedSegmentIndex {
+            case 0:
+                self.importanceChange?(.low)
+                self.importance = .low
+            case 2:
+                self.importanceChange?(.important)
+                self.importance = .important
+            default:
+                self.importanceChange?(.basic)
+                self.importance = .basic
+            }
+        }), for: .valueChanged)
     }
     
 }
