@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol FileCacheProtocol {
     var items: [String: TodoItem] { get }
@@ -63,9 +64,9 @@ final class FileCache: FileCacheProtocol {
                 .appendingPathExtension(fileExt.rawValue)
             
             try jsonData.write(to: fileURL)
-            print("Items saved to file: \(fileURL.absoluteString)")
+            DDLogInfo("Items saved to file: \(fileURL.absoluteString)")
         } catch {
-            print("Failed to save items to file: \(error)")
+            DDLogError("Failed to save items to file: \(error)")
         }
     }
     
@@ -85,7 +86,7 @@ final class FileCache: FileCacheProtocol {
             else { throw FileCacheErrors.unparsableData }
             updateItems(with: todoItems)
         } catch {
-            print(error.localizedDescription)
+            DDLogError(error.localizedDescription)
         }
         
     }
