@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CocoaLumberjackSwift
 
 protocol TodoListViewInput: AnyObject {
     func setup(todoItems: [TodoItem])
@@ -42,6 +43,7 @@ final class TodoListVC: UIViewController {
             ? todoItems[index]
             : .init(text: "Новое дело \(index)")
         presenter?.addItem(item)
+        DDLogInfo("Создан или взят новый айтем для DetailView")
         let viewModel = TodoDetailViewModel(
             fileCache: presenter?.getFileCache() ?? FileCache(),
             itemId: item.id

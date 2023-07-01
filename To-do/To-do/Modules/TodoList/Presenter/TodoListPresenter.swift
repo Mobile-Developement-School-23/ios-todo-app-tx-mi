@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol TodoListViewOutput {
     /// Функция загружает данные и в зависимости от ответа настраивает начальный экран
@@ -50,7 +51,7 @@ extension TodoListPresenter: TodoListViewOutput {
                 }
                 
             } catch {
-                print("🤡 Error: \(error.localizedDescription)")
+                DDLogError("🤡 Error: \(error.localizedDescription)")
             }
         }
         
