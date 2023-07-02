@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodoDetailVC: UIViewController  {
+final class TodoDetailVC: UIViewController {
     
     enum ViewState {
         case edit

@@ -1,0 +1,28 @@
+opt_in_rules:
+  - force_unwrapping
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+    - Pods
+    - DerivedData
+    - .build
+
+line_length: 200
+
+disabled_rules:
+    - trailing_comma
+    - trailing_whitespace
+    - identifier_name
+    - todo
+    - vertical_whitespace
+
+function_body_length: 80
+
+cyclomatic_complexity:
+    warning: 10
+    error: 10
+
+nesting:
+    type_level: 2
+
+warning_threshold: 1
+

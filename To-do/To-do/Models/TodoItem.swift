@@ -34,9 +34,7 @@ struct TodoItem {
         self.changedAt = changedAt
     }
     
-    
 }
-
 
 // MARK: - TodoItem, parsing json and csv
 extension TodoItem {

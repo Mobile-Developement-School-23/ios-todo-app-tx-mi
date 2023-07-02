@@ -23,7 +23,7 @@ final class TDDeadlineView: UIView, TDDeadlineViewProtocol {
     }
     
     // Protocol
-    var deadilneDate: Date? = nil {
+    var deadilneDate: Date? {
         didSet {
             
             if let date = deadilneDate {

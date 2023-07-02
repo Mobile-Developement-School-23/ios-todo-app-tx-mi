@@ -134,6 +134,4 @@ open class ListView: UIStackView {
         alignment = .center
     }
     
-    
-    
 }

@@ -176,7 +176,7 @@ extension TodoDetailSettingsViewStack {
         )
     }
     
-    // MARK:  DatePicker actions
+    // MARK: DatePicker actions
     @objc
     func deadlineViewTapped() {
         guard deadlineView.hasDeadline else { return }
