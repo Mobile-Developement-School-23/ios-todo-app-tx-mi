@@ -17,23 +17,17 @@ final class TodoDetailVC: UIViewController {
     private enum Constants {
         static let saveButtonTitle: String = "Сохранить"
         static let cancelButtonTitle: String = "Отменить"
+        static let deleteItem: Notification.Name = Notification.Name("deleteItem")
+        static let addOrChangeItem: Notification.Name = Notification.Name("addOrChangeItem")
         static let deleteButtonTappedNotification: Notification.Name = Notification.Name("DeleteButtonTapped")
     }
     
     private var viewModel: TodoDetailViewModelProtocol
-    
     private lazy var contenView = TodoDetailContentView(viewModel: viewModel)
     
     // MARK: - Lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(deleteButtonTapped),
-            name: Constants.deleteButtonTappedNotification,
-            object: nil
-        )
         
         // subscribe to update viewData
         viewModel.updateView = { [weak self] viewData in
@@ -65,10 +59,25 @@ final class TodoDetailVC: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = title
+                
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteButtonTapped),
+            name: Constants.deleteButtonTappedNotification,
+            object: nil
+        )
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Constants.deleteButtonTappedNotification,
+            object: nil
+        )
     }
     
     // MARK: - Private methods
@@ -102,7 +111,7 @@ final class TodoDetailVC: UIViewController {
     // MARK: - Handlers
     @objc
     private func didTapSave() {
-        viewModel.saveItem()
+        NotificationCenter.default.post(name: Constants.addOrChangeItem, object: viewModel.item)
         dismiss(animated: true)
     }
     
@@ -113,7 +122,7 @@ final class TodoDetailVC: UIViewController {
     
     @objc
     private func deleteButtonTapped() {
-        viewModel.deleteItem()
+        NotificationCenter.default.post(name: Constants.deleteItem, object: viewModel.item.id)
         dismiss(animated: true)
     }
 

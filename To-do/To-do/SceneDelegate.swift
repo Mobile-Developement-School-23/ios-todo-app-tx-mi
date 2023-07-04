@@ -9,13 +9,14 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    let fileCache: FileCacheProtocol = FileCache()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let window = UIWindow(windowScene: windowScene)
-        let vc = TodoLIstAssembly.assembly()
+        let vc = TodoLIstAssembly.assembly(fileCache: fileCache)
         
         window.rootViewController = vc
         window.makeKeyAndVisible()

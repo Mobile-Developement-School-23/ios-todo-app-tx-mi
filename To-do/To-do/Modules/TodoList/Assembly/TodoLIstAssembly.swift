@@ -9,13 +9,9 @@ import UIKit
 
 final class TodoLIstAssembly {
     
-    static func assembly() -> UIViewController {
-        let vc = TodoListVC()
-        let fileCache = FileCache()
-        let presenter = TodoListPresenter(fileCache: fileCache)
-        
-        presenter.view = vc
-        vc.presenter = presenter
+    static func assembly(fileCache: FileCacheProtocol) -> UIViewController {
+        let viewModel = TodoListViewModel(fileCache: fileCache)
+        let vc = TodoListVC(viewModel: viewModel)
         
         let navigationVC = UINavigationController(rootViewController: vc)
         vc.navigationItem.largeTitleDisplayMode = .automatic

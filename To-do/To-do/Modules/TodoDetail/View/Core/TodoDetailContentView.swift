@@ -32,7 +32,7 @@ final class TodoDetailContentView: UIView {
     
     private let viewModel: TodoDetailViewModelProtocol
     
-    public var viewData: ViewData = .initial {
+    var viewData: ViewData = .initial {
         didSet {
             setNeedsLayout()
         }
@@ -97,10 +97,12 @@ final class TodoDetailContentView: UIView {
             update(item: .init(text: ""), isHidden: true)
         case .loading:
             update(item: .init(text: "Идет загрузка..."), isHidden: true)
-        case .success(let todoItem):
+        case .updateItem(let todoItem):
             update(item: todoItem)
         case .failure(let fileCacheErrors):
             update(item: .init(text: "Не удалось загрузить айтем, по причине: \(fileCacheErrors.localizedDescription)"))
+        default:
+            break
         }
     }
 

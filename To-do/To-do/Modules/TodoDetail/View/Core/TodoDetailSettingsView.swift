@@ -121,7 +121,7 @@ final class TodoDetailSettingsViewStack: UIStackView, TodoDetailSettingsViewStac
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func update(item: ViewData.Item) {
+    func update(item: ViewData.Item) {
         deadlineView.deadilneDate = item.deadline
         datePicker.date = item.deadline ?? .getTomorrow()
         importanceView.importance = item.importance

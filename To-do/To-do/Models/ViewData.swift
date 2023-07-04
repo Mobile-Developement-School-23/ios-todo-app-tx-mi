@@ -10,10 +10,17 @@ import Foundation
 enum ViewData {
     case initial
     case loading
-    case success(Item)
     case failure(FileCache.FileCacheErrors)
     
-    struct Item {
+    case updateItem(Item)
+    case updateItems([Item])
+    
+    case addItem(Item)
+    
+    case removeItem(Item)
+    case removeItems([Item])
+    
+    struct Item: Hashable {
         let id: String
         var text: String
         var importance: Importance
@@ -39,5 +46,27 @@ enum ViewData {
             self.createdAt = createdAt
             self.changedAt = changedAt
         }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.id == rhs.id
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
+}
+
+extension ViewData.Item {
+    init(from todoItem: TodoItem) {
+        self.init(
+            id: todoItem.id,
+            text: todoItem.text,
+            importance: todoItem.importance,
+            deadline: todoItem.deadline,
+            isDone: todoItem.isDone,
+            createdAt: todoItem.createdAt,
+            changedAt: todoItem.changedAt
+        )
     }
 }

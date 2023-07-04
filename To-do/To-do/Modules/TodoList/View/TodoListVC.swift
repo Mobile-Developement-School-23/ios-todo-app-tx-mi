@@ -8,59 +8,111 @@
 import UIKit
 import CocoaLumberjackSwift
 
-protocol TodoListViewInput: AnyObject {
-    func setup(todoItems: [TodoItem])
-}
-
 final class TodoListVC: UIViewController {
     
     // MARK: Private properties
-    private var todoItems: [TodoItem] = []
+    private enum Constants {
+        static let openTodoDetail: Notification.Name = Notification.Name("OpenTodoDetail")
+        static let deleteItem: Notification.Name = Notification.Name("deleteItem")
+        static let addOrChangeItem: Notification.Name = Notification.Name("addOrChangeItem")
+    }
+    
+    private var viewModel: TodoListViewModel
+    private lazy var contenView = TodoListContentView(viewModel: viewModel)
     
     // MARK: Public properties
-    var presenter: TodoListViewOutput?
-    
+
     // MARK: - Initializer
-    init(title: String? = "Мои дела") {
+    init(viewModel: TodoListViewModel, title: String? = "Мои дела") {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = title
+        setupNotifications()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lyfecycle
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Constants.openTodoDetail, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Constants.deleteItem, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Constants.addOrChangeItem, object: nil)
+    }
+    
+    // MARK: - Lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .tdBackPrimary
+
+        // subscribe to update viewData
+        viewModel.updateView = { [weak self] viewData in
+            self?.contenView.viewData = viewData
+        }
+
         // setup views
-        presenter?.viewIsReady()
+        view.addSubview(contenView)
+        makeConstraints()
     }
     
-    private func openTodoDetail(at index: Int) {
-        let item = index < todoItems.count
-            ? todoItems[index]
-            : .init(text: "Новое дело \(index)")
-        presenter?.addItem(item)
-        DDLogInfo("Создан или взят новый айтем для DetailView")
-        let viewModel = TodoDetailViewModel(
-            fileCache: presenter?.getFileCache() ?? FileCache(),
-            itemId: item.id
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.fetchItems()
+    }
+    
+    // MARK: - Setup views
+    private func makeConstraints() {
+        NSLayoutConstraint.activate([
+            contenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            contenView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+    }
+    
+    private func setupNotifications() {
+                        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(openTodoDetail(_:)),
+            name: Constants.openTodoDetail,
+            object: nil
         )
-        let vc = UINavigationController(rootViewController: TodoDetailVC(viewModel: viewModel))
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteItem(_:)),
+            name: Constants.deleteItem,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveItem(_:)),
+            name: Constants.addOrChangeItem,
+            object: nil
+        )
+    }
+
+}
+
+extension TodoListVC {
+    @objc
+    private func openTodoDetail(_ notification: NSNotification) {
+        guard let item = notification.object as? ViewData.Item else { return }
+        let vc = TodoDetailAssembly.assembly(fileCache: viewModel.getFileCache(), item: item)
         present(vc, animated: true)
     }
     
+    @objc
+    private func deleteItem(_ notification: NSNotification) {
+        guard let itemId = notification.object as? String else { return }
+        viewModel.deleteItem(with: itemId)
+    }
     
-}
-
-// MARK: TodoListViewInput
-extension TodoListVC: TodoListViewInput {
-    
-    func setup(todoItems: [TodoItem]) {
-        self.todoItems = todoItems
-        openTodoDetail(at: 0) // TODO: Временное решения пока нет списка айтемов. Будет исправлено в ДЗ 3
+    @objc
+    private func saveItem(_ notification: NSNotification) {
+        guard let item = notification.object as? ViewData.Item else { return }
+        viewModel.addItem(item)
     }
 }

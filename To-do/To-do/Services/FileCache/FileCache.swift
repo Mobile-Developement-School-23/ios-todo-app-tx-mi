@@ -83,7 +83,11 @@ final class FileCache: FileCacheProtocol {
         do {
             let data = try Data(contentsOf: fileURL)
             guard let todoItems = try JSONSerialization.jsonObject(with: data) as? [Any]
-            else { throw FileCacheErrors.unparsableData }
+            else {
+                DDLogError("Error when serrialization: \(FileCacheErrors.unparsableData)")
+                throw FileCacheErrors.unparsableData
+            }
+            DDLogInfo("Загружены айтемы с файла \(fileName), по пути: \(fileURL)")
             updateItems(with: todoItems)
         } catch {
             DDLogError(error.localizedDescription)
