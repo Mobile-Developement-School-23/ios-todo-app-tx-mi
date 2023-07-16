@@ -23,7 +23,6 @@
 		C565C6092A51E97200608D6E /* TodoListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565C6082A51E97200608D6E /* TodoListCellViewModel.swift */; };
 		C565C60C2A51EA0B00608D6E /* TodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565C60B2A51EA0B00608D6E /* TodoListContentView.swift */; };
 		C565C6102A51FCA000608D6E /* TodoListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565C60F2A51FCA000608D6E /* TodoListCellView.swift */; };
-		C565C6122A5210D900608D6E /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565C6112A5210D900608D6E /* DataSource.swift */; };
 		C5687A5B2A4654E300C1B7FA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */; };
 		C5687A6B2A46608900C1B7FA /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A652A46608800C1B7FA /* SF-Pro-Display-Bold.otf */; };
 		C5687A6C2A46608900C1B7FA /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C5687A662A46608800C1B7FA /* SF-Pro-Text-Bold.otf */; };
@@ -76,7 +75,6 @@
 		C565C6082A51E97200608D6E /* TodoListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCellViewModel.swift; sourceTree = "<group>"; };
 		C565C60B2A51EA0B00608D6E /* TodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListContentView.swift; sourceTree = "<group>"; };
 		C565C60F2A51FCA000608D6E /* TodoListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCellView.swift; sourceTree = "<group>"; };
-		C565C6112A5210D900608D6E /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C5687A5A2A4654E300C1B7FA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		C5687A652A46608800C1B7FA /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		C5687A662A46608800C1B7FA /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 		C565C6072A51E4F300608D6E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C565C6112A5210D900608D6E /* DataSource.swift */,
 				C565C6052A51E4ED00608D6E /* TodoListViewModel.swift */,
 				C565C6082A51E97200608D6E /* TodoListCellViewModel.swift */,
 			);
@@ -514,7 +511,6 @@
 				C565C6062A51E4ED00608D6E /* TodoListViewModel.swift in Sources */,
 				C58EF2542A3A6661003A6E96 /* AppDelegate.swift in Sources */,
 				C5BC63742A4A6E43001BEDCD /* Date+Ext.swift in Sources */,
-				C565C6122A5210D900608D6E /* DataSource.swift in Sources */,
 				C5687A782A4677CA00C1B7FA /* ListView.swift in Sources */,
 				C5636B8E2A532E380083563F /* TodoDetailAssembly.swift in Sources */,
 				C5687A822A469C0C00C1B7FA /* TDButton.swift in Sources */,

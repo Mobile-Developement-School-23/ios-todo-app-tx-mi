@@ -8,43 +8,56 @@
 import Foundation
 import CocoaLumberjackSwift
 
+enum FileExtension: String {
+    case json
+}
+
+enum FileCacheErrors: Error {
+    case cannotFindSystemDirectory
+    case unparsableData
+}
+
 protocol FileCacheProtocol {
-    var items: [String: TodoItem] { get }
+    var items: [Item] { get }
     
     @discardableResult
-    func add(_ item: TodoItem) -> TodoItem?
+    func add(_ item: Item) -> Item?
     
     @discardableResult
-    func removeItem(with id: String) -> TodoItem?
+    func removeItem(with id: String) -> Item?
     
-    func saveItems(to fileName: String, with fileExt: FileCache.FileExtension) throws
-    func loadItems(from fileName: String, with fileExt: FileCache.FileExtension) throws
+    func saveItems(to fileName: String, with fileExt: FileExtension) throws
+    func loadItems(from fileName: String, with fileExt: FileExtension) throws
 }
 
 final class FileCache: FileCacheProtocol {
     
     // MARK: Properties
-    private(set) var items: [String: TodoItem] = [:]
+    private(set) var items: [Item] = []
     
     // MARK: Public methods - ImpFileCacheProtocol
     @discardableResult
-    func add(_ item: TodoItem) -> TodoItem? {
-        let oldItem = items[item.id]
-        items[item.id] = item
-        
-        return oldItem
+    func add(_ item: Item) -> Item? {
+        if let indexOldItem = items.firstIndex(where: { $0.id == item.id }) {
+            items[indexOldItem] = item
+            return items[indexOldItem]
+        } else {
+            items.append(item)
+            return item
+        }
     }
     
     @discardableResult
-    func removeItem(with id: String) -> TodoItem? {
-        let oldItem = items[id]
-        items[id] = nil
+    func removeItem(with id: String) -> Item? {
+        if let index = items.firstIndex(where: { $0.id == id }) {
+            return items.remove(at: index)
+        }
         
-        return oldItem
+        return nil
     }
     
     func saveItems(to fileName: String, with fileExt: FileExtension = .json) throws {
-        let jsonArray = items.values.compactMap { $0.json as? [String: Any] }
+        let jsonArray = items.compactMap { $0.json }
         
         do {
             // Преобразуем массив JSON в Data
@@ -82,39 +95,17 @@ final class FileCache: FileCacheProtocol {
         
         do {
             let data = try Data(contentsOf: fileURL)
-            guard let todoItems = try JSONSerialization.jsonObject(with: data) as? [Any]
+            guard let todoItemsJson = try JSONSerialization.jsonObject(with: data) as? [Any]
             else {
                 DDLogError("Error when serrialization: \(FileCacheErrors.unparsableData)")
                 throw FileCacheErrors.unparsableData
             }
             DDLogInfo("Загружены айтемы с файла \(fileName), по пути: \(fileURL)")
-            updateItems(with: todoItems)
+            items = todoItemsJson.compactMap { Item.parse(json: $0) }
         } catch {
             DDLogError(error.localizedDescription)
         }
         
-    }
-    
-    
-}
-
-extension FileCache {
-    
-    enum FileExtension: String {
-        case json
-    }
-    
-    enum FileCacheErrors: Error {
-        case cannotFindSystemDirectory
-        case unparsableData
-    }
-    
-    private func updateItems(with items: [Any]) {
-        self.items.removeAll()
-        
-        items
-            .compactMap { TodoItem.parse(json: $0) }
-            .forEach { self.items[$0.id] = $0 }
     }
     
     

@@ -7,10 +7,12 @@
 
 import Foundation
 
+typealias Item = ViewData.Item
+
 enum ViewData {
     case initial
     case loading
-    case failure(FileCache.FileCacheErrors)
+    case failure(FileCacheErrors)
     
     case updateItem(Item)
     case updateItems([Item])
@@ -69,4 +71,83 @@ extension ViewData.Item {
             changedAt: todoItem.changedAt
         )
     }
+    
+}
+
+// MARK: - Item, parsing json and csv
+extension Item {
+    
+    var json: Any {
+        var jsonDict: [String: Any] = [
+            Keys.id.rawValue: id,
+            Keys.text.rawValue: text,
+            Keys.isDone.rawValue: isDone,
+            Keys.createdAt.rawValue: createdAt.timeIntervalSince1970
+        ]
+        
+        if importance != .basic {
+            jsonDict[Keys.importance.rawValue] = importance.rawValue
+        }
+        
+        if let deadline = deadline {
+            let timestamp = deadline.timeIntervalSince1970
+            jsonDict[Keys.deadline.rawValue] = timestamp
+        }
+        
+        if let changedAt = changedAt {
+            let timestamp = changedAt.timeIntervalSince1970
+            jsonDict[Keys.changedAt.rawValue] = timestamp
+        }
+        
+        return jsonDict
+    }
+    
+    static func parse(json: Any) -> Item? {
+        guard let jsonDict = json as? [String: Any],
+              let id = jsonDict[Keys.id.rawValue] as? String,
+              let text = jsonDict[Keys.text.rawValue] as? String,
+              let createdAt = jsonDict[Keys.createdAt.rawValue] as? TimeInterval
+        else {
+            return nil
+        }
+        
+        let importance = (jsonDict[Keys.importance.rawValue] as? String)
+            .flatMap(Importance.init(rawValue:)) ?? .basic
+        
+        let isDone = (jsonDict[Keys.isDone.rawValue] as? Bool) ?? false
+
+        let deadline = jsonDict[Keys.deadline.rawValue] as? TimeInterval == nil
+            ? nil
+            : (jsonDict[Keys.deadline.rawValue] as? TimeInterval).flatMap { Date(timeIntervalSince1970: $0 )}
+        
+        let changedAt = jsonDict[Keys.changedAt.rawValue] as? TimeInterval == nil
+            ? nil
+            : (jsonDict[Keys.changedAt.rawValue] as? TimeInterval).flatMap { Date(timeIntervalSince1970: $0) }
+        
+        return self.init(
+            id: id,
+            text: text,
+            importance: importance,
+            deadline: deadline,
+            isDone: isDone,
+            createdAt: Date(timeIntervalSince1970: createdAt),
+            changedAt: changedAt
+        )
+    }
+    
+    
+}
+
+extension Item {
+    
+    enum Keys: String {
+        case id
+        case text
+        case importance
+        case deadline
+        case isDone
+        case createdAt
+        case changedAt
+    }
+    
 }

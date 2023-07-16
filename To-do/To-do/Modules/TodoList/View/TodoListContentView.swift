@@ -9,6 +9,7 @@ import UIKit
 import CocoaLumberjackSwift
 
 protocol TodoListContentViewProtocol {
+    
 }
 
 final class TodoListContentView: UIView, TodoListContentViewProtocol {
@@ -17,11 +18,14 @@ final class TodoListContentView: UIView, TodoListContentViewProtocol {
         static let openTodoDetail: Notification.Name = Notification.Name("OpenTodoDetail")
     }
     
-    var viewData: ViewData = .initial {
-        didSet {
-            setNeedsLayout()
-        }
-    }
+    private let viewModel: TodoListViewModel
+    
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.hidesWhenStopped = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
     
     private lazy var headerView = TLHeaderView(viewModel: viewModel)
     
@@ -30,8 +34,11 @@ final class TodoListContentView: UIView, TodoListContentViewProtocol {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.layer.cornerRadius = 16
+        tableView.alpha = 0
+        tableView.isHidden = true
+        tableView.dataSource = viewModel
+        tableView.delegate = viewModel
         tableView.register(TodoListCellView.self)
-        tableView.delegate = self
         
         return tableView
     }()
@@ -49,12 +56,8 @@ final class TodoListContentView: UIView, TodoListContentViewProtocol {
         return button
     }()
     
-    private lazy var dataSource = DataSource(tableView)
-    
-    private let viewModel: TodoListViewModelProtocol
-    
     // MARK: Init
-    init(viewModel: TodoListViewModelProtocol) {
+    init(viewModel: TodoListViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -67,52 +70,31 @@ final class TodoListContentView: UIView, TodoListContentViewProtocol {
     }
     
     // MARK: - Lyfecycle
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        switch viewData {
-        case .initial:
-            break
-        case .loading:
-            break // TODO: Loading view
-            
-        case .updateItems(let items):
-            dataSource.reloadSnapshot(with: items)
-            update(items)
-            
-        case .updateItem(let item):
-            update([item])
-            
-        case .addItem(let item):
-            dataSource.addItems([item])
-            update(item)
-            
-        case .removeItem(let item):
-            dataSource.removeItems([item])
-            update(item)
-            
-        case .failure(let error):
-            DDLogError("Ошибка при загрузки списка айтемов: \(error)")
-        default:
-            break
-        }
-        
-    }
     
-    private func update(_ item: ViewData.Item) {
-        
+    func update() {
+        tableView.reloadData()
+        headerView.update()
     }
     
     private func setupViews() {
         addSubviews(
             headerView,
             tableView,
-            plusButton
+            plusButton,
+            spinner
         )
         makeConstraints()
     }
     
     private func makeConstraints() {
+        // Spiner
+        NSLayoutConstraint.activate([
+            spinner.widthAnchor.constraint(equalToConstant: 100),
+            spinner.heightAnchor.constraint(equalToConstant: 100),
+            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             headerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
@@ -136,45 +118,6 @@ final class TodoListContentView: UIView, TodoListContentViewProtocol {
     
 }
 
-extension TodoListContentView: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let item = dataSource.itemIdentifier(for: indexPath) {
-            NotificationCenter.default.post(
-                name: Constants.openTodoDetail,
-                object: item
-            )
-            DDLogInfo("Открытие Detail view для редактирования айтема с id: \(item.id)")
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: [
-            .makeAction(
-                with: .init(systemName: "checkmark.circle.fill"),
-                color: .tdGreen,
-                completion: { [weak self] in
-                    guard let self, let item = dataSource.itemIdentifier(for: indexPath) else { return }
-                    self.viewModel.didTapIsDone(with: item.id)
-                })
-        ])
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: [
-            .makeAction(
-                with: .init(systemName: "trash"),
-                color: .tdRed,
-                completion: { [weak self] in
-                    guard let self, let item = dataSource.itemIdentifier(for: indexPath) else { return }
-                    self.viewModel.deleteItem(with: item.id)
-                })
-        ])
-    }
-    
-}
-
 extension TodoListContentView {
     
     @objc
@@ -186,5 +129,25 @@ extension TodoListContentView {
         DDLogInfo("Открытие Detail view для создания нового айтема")
     }
     
+    
+}
+
+extension TodoListContentView: TodoListViewModelProtocol {
+    
+    func didSelectItem(_ item: Item) {
+    }
+    
+    func didLoadItems() {
+        spinner.stopAnimating()
+        tableView.isHidden = false
+        update()
+        UIView.animate(withDuration: 0.4) {
+            self.tableView.alpha = 1
+        }
+    }
+    
+    func updateView() {
+        update()
+    }
     
 }

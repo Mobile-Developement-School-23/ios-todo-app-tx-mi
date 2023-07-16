@@ -45,11 +45,6 @@ final class TodoListVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .tdBackPrimary
 
-        // subscribe to update viewData
-        viewModel.updateView = { [weak self] viewData in
-            self?.contenView.viewData = viewData
-        }
-
         // setup views
         view.addSubview(contenView)
         makeConstraints()
@@ -59,6 +54,7 @@ final class TodoListVC: UIViewController {
         super.viewDidAppear(animated)
         viewModel.fetchItems()
     }
+
     
     // MARK: - Setup views
     private func makeConstraints() {
@@ -99,20 +95,20 @@ final class TodoListVC: UIViewController {
 extension TodoListVC {
     @objc
     private func openTodoDetail(_ notification: NSNotification) {
-        guard let item = notification.object as? ViewData.Item else { return }
+        guard let item = notification.object as? Item else { return }
         let vc = TodoDetailAssembly.assembly(fileCache: viewModel.getFileCache(), item: item)
         present(vc, animated: true)
     }
     
     @objc
     private func deleteItem(_ notification: NSNotification) {
-        guard let itemId = notification.object as? String else { return }
-        viewModel.deleteItem(with: itemId)
+//        guard let itemId = notification.object as? String else { return }
+//        viewModel.deleteItem(with: itemId)
     }
     
     @objc
     private func saveItem(_ notification: NSNotification) {
-        guard let item = notification.object as? ViewData.Item else { return }
-        viewModel.addItem(item)
+//        guard let item = notification.object as? ViewData.Item else { return }
+//        viewModel.addItem(item)
     }
 }

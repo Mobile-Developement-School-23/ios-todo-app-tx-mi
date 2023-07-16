@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TLHeaderViewProtocol {
-    func updateIsDone(_ count: Int)
+    func update()
 }
 
 final class TLHeaderView: UIView, TLHeaderViewProtocol {
@@ -29,14 +29,14 @@ final class TLHeaderView: UIView, TLHeaderViewProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .tdLabelTertiary
         label.font = .subhead()
-        label.text = "Выполнено - "
+        label.text = "Выполнено - \(viewModel.successedCount)"
         
         return label
     }()
     
     private var buttonState: ItemsVisibility = .all {
         didSet {
-            updateUI()
+            updateText()
         }
     }
     
@@ -55,9 +55,9 @@ final class TLHeaderView: UIView, TLHeaderViewProtocol {
         return button
     }()
     
-    private let viewModel: TodoListViewModelProtocol
+    private var viewModel: TodoListViewModel
     
-    init(viewModel: TodoListViewModelProtocol) {
+    init(viewModel: TodoListViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         
@@ -89,11 +89,14 @@ final class TLHeaderView: UIView, TLHeaderViewProtocol {
         actionButton.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
-    private func updateUI() {
+    private func updateText() {
         actionButton.setTitle(buttonState.rawValue, for: .normal)
     }
     
-    func updateIsDone(_ count: Int) {
-        titleLabel.text = "Выполнено - \(count)"
+    func update() {
+        titleLabel.text = "Выполнено - \(viewModel.successedCount)"
+//        buttonState = viewModel.visibility
     }
+    
+    
 }
